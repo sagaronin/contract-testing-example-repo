@@ -1,0 +1,85 @@
+{
+  "provider": {
+    "name": "ExampleProvider"
+  },
+  "consumer": {
+    "name": "JunitRuleMultipleInteractionsConsumer"
+  },
+  "interactions": [
+    {
+      "description": "Bheem",
+      "request": {
+        "method": "GET",
+        "path": "/information",
+        "query": {
+          "name": [
+            "Bheem"
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "salary": 45000,
+          "name": "Chota Bheem",
+          "strength": "Punches",
+          "nationality": "India",
+          "contact": {
+            "Email": "chota.bheem@dholakpur.com",
+            "Phone Number": "9090950980"
+          }
+        }
+      },
+      "providerStates": [
+        {
+          "name": ""
+        }
+      ]
+    },
+    {
+      "description": "Krrish",
+      "request": {
+        "method": "GET",
+        "path": "/information",
+        "query": {
+          "name": [
+            "Krrish"
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "salary": 80000,
+          "name": "Krrish",
+          "nationality": "India",
+          "strength": "Flying",
+          "weakness": "super-power",
+          "contact": {
+            "Email": "krrish.mehra@shimla.com",
+            "Phone Number": "9090940123"
+          }
+        }
+      },
+      "providerStates": [
+        {
+          "name": ""
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.3"
+    }
+  }
+}

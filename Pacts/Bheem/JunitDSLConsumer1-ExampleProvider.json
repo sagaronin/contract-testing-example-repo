@@ -1,0 +1,52 @@
+{
+  "provider": {
+    "name": "ExampleProvider"
+  },
+  "consumer": {
+    "name": "JunitDSLConsumer1"
+  },
+  "interactions": [
+    {
+      "description": "Query name is Bheem",
+      "request": {
+        "method": "GET",
+        "path": "/information",
+        "query": {
+          "name": [
+            "Bheem"
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "salary": 45000,
+          "name": "Chota Bheem",
+          "nationality": "India",
+          "strength": "Punches",
+          "weakness": "Laddoos",
+          "contact": {
+            "Email": "chota.bheem@dholakpur.com",
+            "Phone Number": "9090950980"
+          }
+        }
+      },
+      "providerStates": [
+        {
+          "name": ""
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.3"
+    }
+  }
+}

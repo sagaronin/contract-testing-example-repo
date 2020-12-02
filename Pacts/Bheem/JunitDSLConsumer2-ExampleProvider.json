@@ -1,0 +1,52 @@
+{
+  "provider": {
+    "name": "ExampleProvider"
+  },
+  "consumer": {
+    "name": "JunitDSLConsumer2"
+  },
+  "interactions": [
+    {
+      "description": "Query name is Krrish",
+      "request": {
+        "method": "GET",
+        "path": "/information",
+        "query": {
+          "name": [
+            "Krrish"
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "salary": 80000,
+          "name": "Krrish",
+          "nationality": "India",
+          "strength": "Flying",
+          "weakness": "super-power",
+          "contact": {
+            "Email": "krrish.mehra@shimla.com",
+            "Phone Number": "9090940123"
+          }
+        }
+      },
+      "providerStates": [
+        {
+          "name": ""
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.3"
+    }
+  }
+}

@@ -1,0 +1,126 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.3.5.RELEASE")
+        classpath("org.thymeleaf:thymeleaf:3.0.8.RELEASE")
+        classpath("au.com.dius:pact-jvm-provider-gradle:4.0.3")
+
+    }
+}
+
+allprojects {
+  apply plugin: 'java'
+  apply plugin: 'idea'
+
+  repositories {
+     mavenCentral()
+  }
+}
+
+subprojects {
+  apply plugin: 'org.springframework.boot'
+
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+
+  dependencies {
+      implementation("org.springframework.boot:spring-boot-starter-web:2.3.5.RELEASE")
+      implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.3.5.RELEASE")
+      implementation("org.springframework.boot:spring-boot-devtools:2.3.5.RELEASE")
+      testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.5.RELEASE')
+      testImplementation("junit:junit")
+      testImplementation("au.com.dius:pact-jvm-consumer-junit:4.0.3")
+      testImplementation("au.com.dius:pact-jvm-consumer-java8:4.0.3")
+  }
+
+}
+
+project(':example-consumer-bheem') {
+    version '1.0.0'
+    apply plugin: 'au.com.dius.pact'
+
+    jar {
+        archiveBaseName = 'example-consumer-bheem'
+        archiveVersion =  '1.0.0'
+    }
+
+    test {
+        systemProperties['pact.rootDir'] = "$rootDir/Pacts/Bheem"
+    }
+
+    pact {
+        publish {
+            pactDirectory = "$rootDir/Pacts/Bheem"
+
+            pactBrokerUrl = mybrokerUrl
+            pactBrokerUsername = mybrokerUser
+            pactBrokerPassword = mybrokerPassword
+
+            // This is to local Pact Broker in Docker
+//            pactBrokerUrl = "http://localhost"
+        }
+    }
+}
+
+project(':example-consumer-krrish') {
+    jar {
+        archiveBaseName = 'example-consumer-krrish'
+        archiveVersion =  '1.0.0'
+    }
+
+    test {
+        systemProperties['pact.rootDir'] = "$rootDir/Pacts/Krrish"
+    }
+}
+
+project(':example-provider') {
+    apply plugin: 'au.com.dius.pact'
+
+    jar {
+        archiveBaseName = 'example-provider'
+        archiveVersion =  '1.0.0'
+    }
+
+    pact {
+        serviceProviders {
+            ExampleProvider {
+                protocol = 'http'
+                host = 'localhost'
+                port = 8080
+                path = '/'
+
+                // Test Pacts from local for consumer Bheem
+                hasPactsWith('Bheem - All contracts') {
+                    pactFileLocation = file("$rootDir/Pacts/Bheem")
+                }
+
+                // Test Pacts from local for consumer Krrish
+//                hasPactsWith('Krrish - All contracts') {
+//                    pactFileLocation = file("$rootDir/Pacts/Krrish")
+//                }
+
+                // Test Pacts from Pact Broker
+                //hasPactsFromPactBroker(mybrokerUrl, authentication: ['Basic', mybrokerUser, mybrokerPassword])
+
+                // This is for local Pact Broker in Docker
+                //hasPactsFromPactBroker("http://localhost")
+
+                // Test Pacts from local Krrish
+//                hasPactWith('Krrish - With Nantionality') {
+//                    pactSource = file("$rootDir/Pacts/Krrish/ConsumerKrrishWithNationality-ExampleProvider.json")
+//                }
+
+//                hasPactWith('Krrish - No Nantionality') {
+//                    stateChangeUrl = new URL('http://localhost:8080/pactStateChange')
+//                    pactSource = file("$rootDir/Pacts/Krrish/ConsumerKrrishNoNationality-ExampleProvider.json")
+//                }
+
+            }
+        }
+    }
+
+}
+
+

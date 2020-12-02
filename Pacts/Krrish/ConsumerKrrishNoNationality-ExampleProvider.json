@@ -1,0 +1,90 @@
+{
+  "provider": {
+    "name": "ExampleProvider"
+  },
+  "consumer": {
+    "name": "ConsumerKrrishNoNationality"
+  },
+  "interactions": [
+    {
+      "description": "Query name is Krrish",
+      "request": {
+        "method": "GET",
+        "path": "/information",
+        "query": {
+          "name": [
+            "Krrish"
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json;"
+        },
+        "body": {
+          "weakness": "super-power",
+          "nationality": null,
+          "strength": "Flying",
+          "contact": {
+            "Email": "krrish.mehra@shimla.com",
+            "Phone Number": "9090940123"
+          },
+          "name": "Krrish",
+          "salary": 100
+        },
+        "matchingRules": {
+          "body": {
+            "$.salary": {
+              "matchers": [
+                {
+                  "match": "number"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$.contact.Email": {
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": ".*@shimla.com"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$.contact[\u0027Phone Number\u0027]": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            }
+          }
+        },
+        "generators": {
+          "body": {
+            "$.salary": {
+              "type": "RandomInt",
+              "min": 0,
+              "max": 2147483647
+            }
+          }
+        }
+      },
+      "providerStates": [
+        {
+          "name": "No nationality"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.3"
+    }
+  }
+}

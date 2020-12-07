@@ -21,7 +21,7 @@ public class InformationController {
             information.setNationality(Nationality.getNationality());
             information.setContact(contact);
             information.setName("Chota Bheem");
-            information.setSalary(45000);
+            information.setSalary(4000);
             information.setStrength("Punches");
             information.setWeakness("Laddoos");
         } else if (name.equals("Krrish")) {
@@ -37,8 +37,10 @@ public class InformationController {
         } else {
             information.setNationality("Unknown Galaxy");
             information.setContact(null);
-            information.setName("Alien");
+            information.setName("sAlien");
             information.setSalary(0);
+            information.setStrength("UFO");
+            information.setWeakness("MIB");
         }
 
         return information;
